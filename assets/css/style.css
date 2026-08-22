@@ -1,0 +1,23 @@
+@media (max-width: 600px) {
+    header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 20px;
+        box-shadow: 0px 10px 10px 1px #e8e8e8;
+    }
+
+    header img {
+        width: 100px;
+        margin-top: 20px;
+        margin-left: 30px;
+    }
+
+    ion-icon {
+        font-size: 55px;
+        color: black;
+        margin-top: 20px;
+        margin-right: 30px;
+    }
+}
