@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,50 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Bate Papo UOL</title>
 </head>
+
 <body>
     <header>
         <img src="imagens/logo.png">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="abrirMenu()"></ion-icon>
     </header>
-    <div class="container"></div>
+
+
+    <main>
+        <ul class="mensagens">
+            <li class="entrar-sair">
+                <span class="horario">(09:21:45)</span>
+                <strong>João </strong>
+                <span> entra na sala...</span>
+            </li>
+            <li class="conversa-publica">
+                <span class="horario">(09:22:28) </span>
+                <strong> João </strong>
+                <span> para </span>
+                <strong> Todos: </strong>
+                <span> Bom dia </span>
+            </li>
+            <li class="conversa-reservada">
+                <span class="horario">(09:22:48)</span>
+                <strong>João </strong>
+                <span>reservadamente para</span>
+                <strong>Maria: </strong>
+                <span>Quer tc?</span>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <div class="envio-mensagens">
+            <input placeholder="Escreva aqui..." class="input-msg">
+        </div>
+        <button>
+            <ion-icon name="paper-plane-outline"></ion-icon>
+        </button>
+    </footer>
 
     <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="assets/js/scripts.js"></script>
 </body>
+
 </html>

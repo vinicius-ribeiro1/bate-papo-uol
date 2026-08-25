@@ -1,1 +1,0 @@
-const promise = axios.get('')
