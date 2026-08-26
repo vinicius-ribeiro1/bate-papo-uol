@@ -75,14 +75,29 @@ function tratarErro(error) {
 
 function conferirStatus() {
     const promise = axios.post('http://localhost:3000/api/v6/uol/status', { name: nomeUsuario });
+    promise.catch(tratarErroEnvioMsg);
 }
 
 entrarNaSala();
 
 /*------------------------------------- ENVIAR MENSAGEM -------------------------------------*/
 
-const inputMsg = document.querySelector(".input-msg").value
-
 function enviarMensagem() {
-    const promise = axios.post('http://localhost:3000/api/v6/uol/messages',)
+    const inputMsg = document.querySelector(".input-msg").value
+    const corpoMensagem = {
+        from: nomeUsuario,
+        to: "Todos",
+        text: inputMsg,
+        type: "message"
+    }
+    const promise = axios.post('http://localhost:3000/api/v6/uol/messages', corpoMensagem)
+    promise.then(function () {
+        lerMensagens();
+       const limparInput = document.querySelector(".input-msg").value = "";
+    });
+    promise.catch(tratarErroEnvioMsg);
+}
+
+function tratarErroEnvioMsg() {
+    window.location.reload();
 }
