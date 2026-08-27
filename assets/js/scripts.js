@@ -53,6 +53,7 @@ function renderizarMensagens(response) {
 
 
 /*------------------------------------------------------VALIDAÇÂO E ENTRADA NA SALA------------------------------------------------*/
+
 let nomeUsuario = "";
 
 function entrarNaSala() {
@@ -81,19 +82,19 @@ function conferirStatus() {
 entrarNaSala();
 
 /*------------------------------------- ENVIAR MENSAGEM -------------------------------------*/
+const inputMsg = document.querySelector(".input-msg");
 
 function enviarMensagem() {
-    const inputMsg = document.querySelector(".input-msg").value
     const corpoMensagem = {
         from: nomeUsuario,
         to: "Todos",
-        text: inputMsg,
+        text: inputMsg.value,
         type: "message"
-    }
+    };
     const promise = axios.post('http://localhost:3000/api/v6/uol/messages', corpoMensagem)
     promise.then(function () {
         lerMensagens();
-       const limparInput = document.querySelector(".input-msg").value = "";
+        inputMsg.value = "";
     });
     promise.catch(tratarErroEnvioMsg);
 }
@@ -101,3 +102,10 @@ function enviarMensagem() {
 function tratarErroEnvioMsg() {
     window.location.reload();
 }
+
+inputMsg.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        enviarMensagem();
+    }
+});
