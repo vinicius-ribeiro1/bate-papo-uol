@@ -1,4 +1,4 @@
-
+/*------------------------------------------------------------------------------ CARREGANDO MENSAGENS -----------------------------------------------------*/
 
 function lerMensagens() {
     const promise = axios.get('http://localhost:3000/api/v6/uol/messages')
@@ -26,7 +26,7 @@ function renderizarMensagens(response) {
                 <span>${mensagens.text}</span>
             </li>`
         }
-        if (mensagens.type === 'private_message') {
+        if (mensagens.type === 'private_message' && (nomeUsuario === mensagens.to || nomeUsuario === mensagens.from)) {
             listaMensagens.innerHTML += ` 
             <li class="conversa-reservada">
                 <span class="horario">(${mensagens.time})</span>
@@ -52,8 +52,6 @@ function renderizarMensagens(response) {
 
 
 
-
-
 /*------------------------------------------------------ENTRADA NA SALA------------------------------------------------*/
 let nomeUsuario = "";
 
@@ -76,7 +74,7 @@ function tratarErro(error) {
 }
 
 function conferirStatus() {
-    const promise = axios.post('http://localhost:3000/api/v6/uol/status', { name: nomeUsuario })
+    const promise = axios.post('http://localhost:3000/api/v6/uol/status', { name: nomeUsuario });
 }
 
 entrarNaSala();
