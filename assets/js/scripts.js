@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------ CARREGANDO MENSAGENS -----------------------------------------------------*/
+/*------------------------------------------------------------ CARREGAR E RENDERIZAR MENSAGENS -----------------------------------*/
 
 function lerMensagens() {
     const promise = axios.get('http://localhost:3000/api/v6/uol/messages')
@@ -52,7 +52,7 @@ function renderizarMensagens(response) {
 
 
 
-/*------------------------------------------------------ENTRADA NA SALA------------------------------------------------*/
+/*------------------------------------------------------VALIDAÇÂO E ENTRADA NA SALA------------------------------------------------*/
 let nomeUsuario = "";
 
 function entrarNaSala() {
@@ -78,3 +78,11 @@ function conferirStatus() {
 }
 
 entrarNaSala();
+
+/*------------------------------------- ENVIAR MENSAGEM -------------------------------------*/
+
+const inputMsg = document.querySelector(".input-msg").value
+
+function enviarMensagem() {
+    const promise = axios.post('http://localhost:3000/api/v6/uol/messages',)
+}
