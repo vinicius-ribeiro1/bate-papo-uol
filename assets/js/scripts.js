@@ -37,6 +37,7 @@ function conferirStatus() {
     promise.catch(tratarErroEnvioMsg);
 }
 
+
 /* --------------------------- CARREGAR MENSAGENS DO SERVIDOR E RENDERIZAR ------------------------------ */
 
 function lerMensagens() {
@@ -87,6 +88,7 @@ function renderizarMensagens(response) {
     }
     scrollParaUltimaMsg();
 }
+
 
 /*------------------------------------- ENVIAR MENSAGEM -------------------------------------*/
 
