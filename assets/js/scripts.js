@@ -1,7 +1,46 @@
-/*------------------------------------------------------------ CARREGAR E RENDERIZAR MENSAGENS -----------------------------------*/
+const urlAPI = 'http://localhost:3000/api/v6/uol';
+const inputMsg = document.querySelector(".input-msg");
+let nomeUsuario = "";
+
+entrarNaSala();
+
+inputMsg.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        enviarMensagem();
+    }
+});
+
+
+/*--------------------------------------------- VALIDAÇÂO E ENTRADA NA SALA -------------------------------------------*/
+
+function entrarNaSala() {
+    nomeUsuario = prompt("Nome de usuário: ")
+    const promise = axios.post(urlAPI + '/participants', { name: nomeUsuario });
+    promise.then(function () {
+        lerMensagens();
+        setInterval(conferirStatus, 5000);
+        setInterval(lerMensagens, 3000);
+    })
+    promise.catch(tratarErro)
+}
+
+function tratarErro(error) {
+    if (error.response.status === 400) {
+        alert('Nome já utilizado, digite outro nome!')
+        entrarNaSala();
+    }
+}
+
+function conferirStatus() {
+    const promise = axios.post(urlAPI + '/status', { name: nomeUsuario });
+    promise.catch(tratarErroEnvioMsg);
+}
+
+/* --------------------------- CARREGAR MENSAGENS DO SERVIDOR E RENDERIZAR ------------------------------ */
 
 function lerMensagens() {
-    const promise = axios.get('http://localhost:3000/api/v6/uol/messages')
+    const promise = axios.get(urlAPI + '/messages')
     promise.then(renderizarMensagens)
 }
 
@@ -11,7 +50,6 @@ function scrollParaUltimaMsg() {
 }
 
 function renderizarMensagens(response) {
-
     const listaMensagens = document.querySelector(".container-mensagens");
     listaMensagens.innerHTML = "";
 
@@ -50,39 +88,7 @@ function renderizarMensagens(response) {
     scrollParaUltimaMsg();
 }
 
-
-
-/*------------------------------------------------------VALIDAÇÂO E ENTRADA NA SALA------------------------------------------------*/
-
-let nomeUsuario = "";
-
-function entrarNaSala() {
-    nomeUsuario = prompt("Nome de usuário: ")
-    const promise = axios.post('http://localhost:3000/api/v6/uol/participants', { name: nomeUsuario });
-    promise.then(function () {
-        lerMensagens();
-        setInterval(conferirStatus, 5000);
-        setInterval(lerMensagens, 3000);
-    })
-    promise.catch(tratarErro)
-}
-
-function tratarErro(error) {
-    if (error.response.status === 400) {
-        alert('Nome já utilizado, digite outro nome!')
-        entrarNaSala();
-    }
-}
-
-function conferirStatus() {
-    const promise = axios.post('http://localhost:3000/api/v6/uol/status', { name: nomeUsuario });
-    promise.catch(tratarErroEnvioMsg);
-}
-
-entrarNaSala();
-
 /*------------------------------------- ENVIAR MENSAGEM -------------------------------------*/
-const inputMsg = document.querySelector(".input-msg");
 
 function enviarMensagem() {
     const corpoMensagem = {
@@ -91,7 +97,7 @@ function enviarMensagem() {
         text: inputMsg.value,
         type: "message"
     };
-    const promise = axios.post('http://localhost:3000/api/v6/uol/messages', corpoMensagem)
+    const promise = axios.post(urlAPI + '/messages', corpoMensagem)
     promise.then(function () {
         lerMensagens();
         inputMsg.value = "";
@@ -102,10 +108,3 @@ function enviarMensagem() {
 function tratarErroEnvioMsg() {
     window.location.reload();
 }
-
-inputMsg.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        enviarMensagem();
-    }
-});
